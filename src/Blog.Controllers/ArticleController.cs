@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Controllers
 {
-    public class ArticleController : Controller
+    public class ArticlesController : Controller
     {
         private readonly IArticleService articlesService;
 
-        public ArticleController(IArticleService articlesService)
+        public ArticlesController(IArticleService articlesService)
             => this.articlesService = articlesService;
 
         public async Task<IActionResult> Index()

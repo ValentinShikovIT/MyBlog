@@ -1,10 +1,11 @@
-﻿using MyBlog.Services.Models;
+﻿using MyBlog.Services.Common;
+using MyBlog.Services.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MyBlog.Services
 {
-    public interface IArticleService
+    public interface IArticleService : IService
     {
         public Task<int> Create(string title, string description, string authorId);
 

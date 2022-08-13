@@ -32,7 +32,7 @@ namespace MyBlog
                 typeof(ArticleService).Assembly,
                 typeof(HomeController).Assembly);
 
-            services.AddTransient<IArticleService, ArticleService>();
+            services.AddConventionalService();
 
             services.AddMyMvc();
         }
