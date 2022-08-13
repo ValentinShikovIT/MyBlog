@@ -4,12 +4,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MyBlog.Controllers;
 using MyBlog.Data;
 using MyBlog.Data.Models;
 using MyBlog.Infrastructure;
-using MyBlog.Services;
-using MyBlog.Services.Implementations;
 
 namespace MyBlog
 {
@@ -28,9 +25,7 @@ namespace MyBlog
             services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<MyBlogDbContext>();
 
-            services.AddAutoMapper(
-                typeof(ArticleService).Assembly,
-                typeof(HomeController).Assembly);
+            services.AddAutoMapper(this.GetType());
 
             services.AddConventionalService();
 

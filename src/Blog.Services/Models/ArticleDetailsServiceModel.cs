@@ -1,8 +1,11 @@
-﻿using System;
+﻿using AutoMapper;
+using MyBlog.Common.Mapping;
+using MyBlog.Data.Models;
+using System;
 
 namespace MyBlog.Services.Models
 {
-    public class ArticleDetailsServiceModel
+    public class ArticleDetailsServiceModel : IMapFrom<Article>, IMapExplicitly
     {
         public int Id { get; set; }
 
@@ -13,5 +16,11 @@ namespace MyBlog.Services.Models
         public DateTime CreatedOn { get; set; }
 
         public string Author { get; set; }
+
+        public void RegisterMappings(IProfileExpression profile)
+        {
+            profile.CreateMap<Article, ArticleDetailsServiceModel>()
+                .ForMember(m => m.Author, cfg => cfg.MapFrom(a => a.Author.UserName));
+        }
     }
 }

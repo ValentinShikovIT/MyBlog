@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Blog.Data\MyBlog.Data.csproj" />
+    <ProjectReference Include="..\MyBlog.Common\MyBlog.Common.csproj" />
   </ItemGroup>
 
 </Project>
