@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Blogsmith</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link href="~/css/default.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/css/identity.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body>
+    <div id="logo">
+        <h1><a href="#">MyBlog</a></h1>
+        <p>From V.S.</p>
+    </div>
+    <div id="menu">
+        <ul>
+            <li class="current_page_item"><a asp-controller="Articles" asp-action="Index">Homepage</a></li>
+            <li><a href="#">Articles</a></li>
+            <li><a href="#">About Us</a></li>
+            <partial name="_LoginPartial" />
+        </ul>
+    </div>
+    <div id="page">
+        <div id="page-bg">
+            <div id="latest-post">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <p>&copy;2007 All Rights Reserved. &nbsp;&bull;&nbsp;</p>
+    </div>
+</body>
+</html>

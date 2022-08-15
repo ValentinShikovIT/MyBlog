@@ -22,8 +22,17 @@ namespace MyBlog
             services.AddDbContext<MyBlogDbContext>(options => options
                 .UseSqlServer(Configuration.GetDefaultConnectionString()));
 
-            services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<MyBlogDbContext>();
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.SignIn.RequireConfirmedEmail = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+            })
+                .AddEntityFrameworkStores<MyBlogDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddAutoMapper(this.GetType());
 

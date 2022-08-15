@@ -1,0 +1,63 @@
+﻿@page
+@model MyBlog.Areas.Identity.Pages.LoginModel
+@{
+}
+
+@foreach (var error in Model.Errors)
+{
+    <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+</head>
+<body>
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  @error
+</div>
+
+</body>
+</html>
+}
+
+<form method="post">
+  <div class="container">
+    <h1>Login</h1>
+    <p>Provide your sign in credentials</p>
+    <hr>
+
+    <label asp-for="@Model.Username"><b>Username</b></label>
+    <input asp-for="@Model.Username" type="text" placeholder="Enter Username" required>
+
+    <label asp-for="@Model.Password"><b>Password</b></label>
+    <input asp-for="@Model.Password" type="password" placeholder="Enter Password" id="psw" required>
+
+    <button type="submit" class="registerbtn">Login</button>
+  </div>
+
+  <div class="container signin">
+    <p>Don't have an account? <a asp-area="Identity" asp-page="/Register">Register now</a>.</p>
+  </div>
+</form>

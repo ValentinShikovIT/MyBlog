@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.Controllers.Infrastructure;
 using MyBlog.Controllers.Models.Articles;
 using MyBlog.Services;
+using MyBlog.Services.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MyBlog.Controllers
@@ -10,12 +13,20 @@ namespace MyBlog.Controllers
     public class ArticlesController : Controller
     {
         private readonly IArticleService articlesService;
+        private readonly IMapper mapper;
 
-        public ArticlesController(IArticleService articlesService)
-            => this.articlesService = articlesService;
+        public ArticlesController(IArticleService articlesService, IMapper mapper)
+        {
+            this.articlesService = articlesService;
+            this.mapper = mapper;
+        }
 
         public async Task<IActionResult> Index()
-            => this.Ok(await articlesService.All(1));
+        {
+            var articles = await articlesService.All(1);
+
+            return this.View(mapper.Map<IEnumerable<ArticleListingServiceModel>, IEnumerable<ArticleDisplayModel>>(articles));
+        }
 
         [HttpGet]
         [Authorize]

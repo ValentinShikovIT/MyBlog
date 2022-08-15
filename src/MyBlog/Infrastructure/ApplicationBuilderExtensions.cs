@@ -35,7 +35,7 @@ namespace MyBlog.Infrastructure
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Articles}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "custom",
@@ -58,6 +58,8 @@ namespace MyBlog.Infrastructure
             await AddAdminRole(serviceScope.ServiceProvider);
             await AddAdminUser(serviceScope.ServiceProvider);
 
+            await AddRegularRole(serviceScope.ServiceProvider);
+
             return app;
         }
 
@@ -74,6 +76,21 @@ namespace MyBlog.Infrastructure
             var adminRole = new IdentityRole(WebConstants.AdminRoleName);
 
             await roleManager.CreateAsync(adminRole);
+        }
+
+        private static async Task AddRegularRole(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+            var existingRole = await roleManager.FindByNameAsync(WebConstants.RegularRoleName);
+
+            if (existingRole != null)
+            {
+                return;
+            }
+
+            var regularRole = new IdentityRole(WebConstants.RegularRoleName);
+
+            await roleManager.CreateAsync(regularRole);
         }
 
         private static async Task AddAdminUser(IServiceProvider serviceProvider)
