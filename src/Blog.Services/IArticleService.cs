@@ -7,7 +7,7 @@ namespace MyBlog.Services
 {
     public interface IArticleService : IService
     {
-        public Task<int> Create(string title, string description, string authorId);
+        public Task<int> CreateAsync(string title, string description, string authorId);
 
         public Task<ArticleDetailsServiceModel> Details(int id);
 

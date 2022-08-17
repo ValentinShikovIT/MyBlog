@@ -11,11 +11,11 @@ namespace MyBlog.Areas.Identity.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<User> signInManger;
+        private readonly SignInManager<User> signInManager;
 
         public LoginModel(SignInManager<User> signInManger)
         {
-            this.signInManger = signInManger;
+            this.signInManager = signInManger;
         }
 
         [BindProperty]
@@ -24,15 +24,18 @@ namespace MyBlog.Areas.Identity.Pages
         [BindProperty]
         public string Password { get; set; }
 
+        [BindProperty]
+        public bool RememberMe { get; set; }
+
         public List<string> Errors { get; set; } = new List<string>();
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (await DoesUserWithUsernameExist())
             {
-                var user = await signInManger.UserManager.FindByNameAsync(Username);
+                var user = await signInManager.UserManager.FindByNameAsync(Username);
 
-                var signInResult = await signInManger.CheckPasswordSignInAsync(user, Password, false);
+                var signInResult = await signInManager.CheckPasswordSignInAsync(user, Password, false);
 
                 if (!signInResult.Succeeded)
                 {
@@ -40,7 +43,7 @@ namespace MyBlog.Areas.Identity.Pages
                 }
                 else
                 {
-                    await signInManger.SignInAsync(user, false);
+                    await signInManager.SignInAsync(user, RememberMe);
                 }
             }
             else
@@ -57,6 +60,6 @@ namespace MyBlog.Areas.Identity.Pages
         }
 
         private async Task<bool> DoesUserWithUsernameExist()
-            => await signInManger.UserManager.FindByNameAsync(Username) != null;
+            => await signInManager.UserManager.FindByNameAsync(Username) != null;
     }
 }

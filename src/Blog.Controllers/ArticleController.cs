@@ -34,17 +34,17 @@ namespace MyBlog.Controllers
             => View();
 
         [HttpPost]
-        [Authorize]
-        public IActionResult Create(ArticleFormModel model)
+        [Authorize(Roles = "Admin,Regular")]
+        public async Task<IActionResult> Create(ArticleFormModel model)
         {
             if (ModelState.IsValid)
             {
-                var articleId = this.articlesService.Create(
+                var articleId = await this.articlesService.CreateAsync(
                     model.Title,
                     model.Description,
                     this.User.GetUserId());
 
-                return RedirectToAction(nameof(Details), new { id = articleId });
+                return RedirectToAction(nameof(Index));
             }
 
             return this.View(model);

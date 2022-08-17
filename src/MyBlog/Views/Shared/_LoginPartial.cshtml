@@ -2,10 +2,18 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
+<style>
+    #inactiveLink {
+   pointer-events: none;
+   cursor: default;
+}
+</style>
+
+
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-link text-dark" style="float:right">
-        <a class="nav-link text-dark">Hello User @UserManager.GetUserName(User)!</a>
+    <li style="float:right">
+        <a class="nav-link text-dark" id="inactiveLink">Hello User @UserManager.GetUserName(User)!</a>
     </li>
     <li style="float:right">
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Logout">Logout</a>

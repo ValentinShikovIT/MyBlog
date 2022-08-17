@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager;
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Blogsmith</title>
@@ -13,51 +16,24 @@
 <div id="menu">
   <ul>
     <li class="current_page_item"><a asp-controller="Articles" asp-action="Index">Homepage</a></li>
-    <li><a href="#">Articles</a></li>
+            @if (signInManager.IsSignedIn(User))
+            {
+                <li><a asp-action="Create" asp-controller="Articles">Create Article</a></li>
+            }
     <li><a href="#">About Us</a></li>
     <partial name="_LoginPartial" />
   </ul>
 </div>
 <div id="page">
   <div id="page-bg">
-    <div id="latest-post"> <img src="images/img04.jpg" alt="" width="140" height="165" class="right" />
-      <h1>Welcome to Our Website!</h1>
-      <p><strong>My Blog</strong> is a simple blog website created using ASP.NET CORE MVC.</p>
-    </div>
-    <div id="content">
-      @RenderBody()
-    </div>
-    <div id="sidebar">
-      <ul>
-        <li>
-          <h2>Categories</h2>
-          <ul>
-            <li><a href="#">Aliquam libero</a></li>
-            <li><a href="#">Consectetuer adipiscing elit</a></li>
-            <li><a href="#">metus aliquam pellentesque</a></li>
-            <li><a href="#">Suspendisse iaculis mauris</a></li>
-            <li><a href="#">Urnanet non molestie semper</a></li>
-            <li><a href="#">Proin gravida orci porttitor</a></li>
-          </ul>
-        </li>
-        <li>
-          <h2>Archives</h2>
-          <ul>
-            <li><a href="#">September</a> (23)</li>
-            <li><a href="#">August</a> (31)</li>
-            <li><a href="#">July</a> (31)</li>
-            <li><a href="#">June</a> (30)</li>
-            <li><a href="#">May</a> (31)</li>
-          </ul>
-        </li>
-      </ul>
-    </div>
+    @RenderBody()
     <div style="clear: both;">&nbsp;</div>
   </div>
 </div>
 <div id="footer">
   <p>&copy;2007 All Rights Reserved. &nbsp;&bull;&nbsp;</p>
 </div>
+@RenderSection("scripts", false)
 </body>
 </html>
 

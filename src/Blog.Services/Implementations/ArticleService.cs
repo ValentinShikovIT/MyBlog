@@ -23,7 +23,7 @@ namespace MyBlog.Services.Implementations
             this.mapper = mapper;
         }
 
-        public async Task<int> Create(string title, string description, string authorId)
+        public async Task<int> CreateAsync(string title, string description, string authorId)
         {
             var article = new Article
             {
