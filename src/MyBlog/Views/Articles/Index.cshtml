@@ -1,4 +1,6 @@
-﻿@model IEnumerable<ArticleDisplayModel>
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<ArticleDisplayModel>
+@inject SignInManager<User> signInManager
 
 <div id="latest-post">
     <img src="images/img04.jpg" alt="" width="140" height="165" class="right" />
@@ -11,7 +13,10 @@
         <div class="post">
             <h2 class="title"><a href="#">@articleDisplay.Title</a></h2>
             <p class="byline"><small>Author: @articleDisplay.Author </small></p>
-            <p class="links"><a href="#" class="more">Read More</a> &nbsp;&nbsp;&nbsp; <a href="#" class="comments">No Comments</a></p>
+            @if ((signInManager.IsSignedIn(User) && (await signInManager.UserManager.FindByNameAsync(articleDisplay.Author)).UserName == User.Identity.Name))
+            {
+                <p class="links"><a asp-action="Delete" asp-controller="Articles" asp-route-id="@articleDisplay.Id" class="more">Delete</a></p>
+            }
         </div>
     }
 </div>

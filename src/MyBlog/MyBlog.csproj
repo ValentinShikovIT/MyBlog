@@ -17,4 +17,12 @@
     <ProjectReference Include="..\Blog.Services\MyBlog.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Articles\Delete.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Articles\Delete.cshtml" />
+  </ItemGroup>
+
 </Project>

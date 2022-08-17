@@ -59,7 +59,7 @@ namespace MyBlog.Controllers
                 return NotFound();
             }
 
-            return View();
+            return View(id);
         }
 
         [HttpPost]
@@ -94,19 +94,19 @@ namespace MyBlog.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> DeleteById(int id)
+        [Authorize(Roles = "Admin,Regular")]
+        public async Task<IActionResult> Delete(int id)
         {
             if (!await this.articlesService.Exists(id, this.User.GetUserId()))
             {
                 return NotFound();
             }
 
-            return View();
+            return View(id);
         }
 
-        [HttpPost]
-        [Authorize]
+        [HttpGet]
+        [Authorize(Roles = "Admin,Regular")]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
             if (!await this.articlesService.Exists(id, this.User.GetUserId()))
@@ -116,7 +116,7 @@ namespace MyBlog.Controllers
 
             await this.articlesService.Remove(id);
 
-            return Redirect(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
     }
 }
